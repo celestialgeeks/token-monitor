@@ -1,7 +1,7 @@
 {
   "name": "router-x-token-monitor",
   "productName": "Router x Token Monitor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Live token & cost widget for Claude Code, Codex & Hermes — local-first, optional multi-device sync.",
   "main": "src/electron/main.js",
   "scripts": {
