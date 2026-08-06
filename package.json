@@ -1,6 +1,6 @@
 {
-  "name": "personal-monitor",
-  "productName": "Personal Monitor",
+  "name": "router-x-token-monitor",
+  "productName": "Router x Token Monitor",
   "version": "1.0.2",
   "description": "Live token & cost widget for Claude Code, Codex & Hermes — local-first, optional multi-device sync.",
   "main": "src/electron/main.js",
@@ -16,7 +16,7 @@
     "pack": "electron-builder --dir",
     "dist:mac": "electron-builder --mac --arm64 --publish never",
     "dist:mac:unsigned": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arm64 --publish never -c.mac.forceCodeSigning=false -c.mac.identity=null",
-    "release:local": "npm run dist:mac:unsigned && gh release create v$npm_package_version -t \"v$npm_package_version\" -n \"Local Release\" dist/Personal-Monitor-$npm_package_version-arm64.dmg dist/Personal-Monitor-$npm_package_version-arm64.zip dist/latest-mac.yml dist/*.blockmap",
+    "release:local": "npm run dist:mac:unsigned && gh release create v$npm_package_version -t \"v$npm_package_version\" -n \"Local Release\" dist/Router-x-Token-Monitor-$npm_package_version-arm64.dmg dist/Router-x-Token-Monitor-$npm_package_version-arm64.zip dist/latest-mac.yml dist/*.blockmap",
     "dist:mac:x64": "electron-builder --mac --x64 --publish never",
     "dist:win": "electron-builder --win --x64 --publish never",
     "dist:win:dir": "electron-builder --win dir --x64 --publish never",
@@ -28,7 +28,7 @@
   },
   "build": {
     "appId": "com.javis.tokenmonitor",
-    "productName": "Personal Monitor",
+    "productName": "Router x Token Monitor",
     "directories": {
       "output": "dist"
     },
@@ -46,7 +46,7 @@
       "node_modules/koffi/**/*"
     ],
     "mac": {
-      "artifactName": "Personal-Monitor-${version}-${arch}.${ext}",
+      "artifactName": "Router-x-Token-Monitor-${version}-${arch}.${ext}",
       "target": [
         "dmg",
         "zip"
@@ -80,7 +80,7 @@
       }
     },
     "linux": {
-      "artifactName": "Personal-Monitor-${version}.${ext}",
+      "artifactName": "Router-x-Token-Monitor-${version}.${ext}",
       "target": [
         {
           "target": "AppImage",
@@ -95,16 +95,16 @@
       "description": "Real-time token, cost, and AI limits widget with multi-device sync for Claude Code, Codex, OpenCode and more."
     },
     "nsis": {
-      "artifactName": "Personal-Monitor-Setup-${version}.${ext}"
+      "artifactName": "Router-x-Token-Monitor-Setup-${version}.${ext}"
     },
     "portable": {
-      "artifactName": "Personal-Monitor-${version}.${ext}"
+      "artifactName": "Router-x-Token-Monitor-${version}.${ext}"
     },
     "publish": [
       {
         "provider": "github",
         "owner": "celestialgeeks",
-        "repo": "personal-monitor"
+        "repo": "router-x-token-monitor"
       }
     ]
   },
@@ -113,7 +113,7 @@
     "claude-code",
     "codex",
     "hermes",
-    "personal-monitor",
+    "router-x-token-monitor",
     "token-usage",
     "cost-tracking",
     "llm",
@@ -127,11 +127,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Javis603/personal-monitor.git"
+    "url": "git+https://github.com/celestialgeeks/router-x-token-monitor.git"
   },
-  "homepage": "https://github.com/Javis603/personal-monitor#readme",
+  "homepage": "https://github.com/celestialgeeks/router-x-token-monitor#readme",
   "bugs": {
-    "url": "https://github.com/Javis603/personal-monitor/issues"
+    "url": "https://github.com/celestialgeeks/router-x-token-monitor/issues"
   },
   "dependencies": {
     "@xhayper/discord-rpc": "^1.3.4",
