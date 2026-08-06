@@ -439,7 +439,7 @@ function HeroDashboard() {
     <div className="hero-dashboard" aria-label="Interactive Personal Monitor Home dashboard">
       <header className="hero-dashboard-titlebar">
         <div className="hero-dashboard-mark" aria-label="Personal Monitor">
-          <img src="assets/icon.png" aria-hidden="true" style={{ height: '1.2em', verticalAlign: 'baseline' }} />
+          <span aria-hidden="true">Σ</span>
           <i aria-hidden="true"></i>
         </div>
         <div

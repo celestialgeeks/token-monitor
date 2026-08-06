@@ -1,7 +1,7 @@
 {
   "name": "personal-monitor",
   "productName": "Personal Monitor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Live token & cost widget for Claude Code, Codex & Hermes — local-first, optional multi-device sync.",
   "main": "src/electron/main.js",
   "scripts": {
