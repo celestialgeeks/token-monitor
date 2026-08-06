@@ -1,4 +1,4 @@
-name = "token-monitor-hub"
+name = "personal-monitor-hub"
 main = "src/index.js"
 compatibility_date = "2025-05-01"
 

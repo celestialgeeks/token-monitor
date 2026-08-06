@@ -17,7 +17,7 @@ const {
 } = require('../../src/shared/credentialStore');
 
 function tempDataDir(t) {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'token-monitor-credentials-'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'personal-monitor-credentials-'));
   t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
   return dir;
 }

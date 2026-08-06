@@ -2,14 +2,14 @@
 
 // Linux "start at login" for AppImage builds. Electron's app.setLoginItemSettings
 // is a no-op on Linux, so we manage an XDG autostart entry ourselves:
-// ~/.config/autostart/token-monitor.desktop pointing Exec= at $APPIMAGE
+// ~/.config/autostart/personal-monitor.desktop pointing Exec= at $APPIMAGE
 // (the absolute path the AppImage runtime exports for the running image).
 
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const DESKTOP_FILE_NAME = 'token-monitor.desktop';
+const DESKTOP_FILE_NAME = 'personal-monitor.desktop';
 
 function autostartSupported({ platform = process.platform, env = process.env } = {}) {
   return platform === 'linux' && Boolean(env.APPIMAGE);
@@ -34,7 +34,7 @@ function desktopFileContents(appImagePath) {
   return [
     '[Desktop Entry]',
     'Type=Application',
-    'Name=Token Monitor',
+    'Name=Personal Monitor',
     `Exec=${quoteExecArgument(appImagePath)}`,
     'X-GNOME-Autostart-enabled=true',
     ''

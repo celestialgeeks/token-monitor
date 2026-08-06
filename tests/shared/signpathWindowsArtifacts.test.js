@@ -22,8 +22,8 @@ const {
 
 const VERSION = '0.30.0';
 const APPLICATION = 'Token Monitor.exe';
-const INSTALLER = `Token-Monitor-Setup-${VERSION}.exe`;
-const PORTABLE = `Token-Monitor-${VERSION}.exe`;
+const INSTALLER = `Personal-Monitor-Setup-${VERSION}.exe`;
+const PORTABLE = `Personal-Monitor-${VERSION}.exe`;
 const PROJECT_ROOT = path.resolve(__dirname, '..', '..');
 const SAMPLE_YAML = [
   `version: ${VERSION}`,
@@ -67,12 +67,12 @@ test('SignPath configurations restrict every signed PE to the release product me
   ]);
   assert.deepEqual(openingTagAttributes(artifactXml, 'pe-file'), [
     {
-      path: 'installer/Token-Monitor-Setup-${version}.exe',
+      path: 'installer/Personal-Monitor-Setup-${version}.exe',
       'product-name': pkg.productName,
       'product-version': '${version}'
     },
     {
-      path: 'portable/Token-Monitor-${version}.exe',
+      path: 'portable/Personal-Monitor-${version}.exe',
       'product-name': pkg.productName,
       'product-version': '${version}'
     }
@@ -137,8 +137,8 @@ function makeFixture(t) {
           verifyUpdateCodeSignature: true,
           signtoolOptions: { publisherName: 'SignPath Foundation' }
         },
-        nsis: { artifactName: 'Token-Monitor-Setup-${version}.${ext}' },
-        portable: { artifactName: 'Token-Monitor-${version}.${ext}' },
+        nsis: { artifactName: 'Personal-Monitor-Setup-${version}.${ext}' },
+        portable: { artifactName: 'Personal-Monitor-${version}.${ext}' },
         publish: [{ provider: 'github', owner: 'Javis603', repo: 'token-monitor' }]
       }
     })
@@ -292,7 +292,7 @@ test('expectedWindowsArtifacts rejects unsafe output names and output-parameter 
   assert.throws(() => expectedWindowsArtifacts(fixture.packageJsonPath), /Unsupported package version/);
 
   pkg.version = VERSION;
-  pkg.build.portable.artifactName = '..\\Token-Monitor-${version}.${ext}';
+  pkg.build.portable.artifactName = '..\\Personal-Monitor-${version}.${ext}';
   fs.writeFileSync(fixture.packageJsonPath, JSON.stringify(pkg));
   assert.throws(() => expectedWindowsArtifacts(fixture.packageJsonPath), /Unsupported Windows artifactName/);
 });

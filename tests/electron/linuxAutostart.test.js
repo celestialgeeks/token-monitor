@@ -15,11 +15,11 @@ const {
 } = require('../../src/electron/linuxAutostart');
 
 function tmpConfigHome() {
-  return fs.mkdtempSync(path.join(os.tmpdir(), 'token-monitor-autostart-'));
+  return fs.mkdtempSync(path.join(os.tmpdir(), 'personal-monitor-autostart-'));
 }
 
 test('autostartSupported requires linux and a running AppImage', () => {
-  assert.equal(autostartSupported({ platform: 'linux', env: { APPIMAGE: '/opt/Token Monitor.AppImage' } }), true);
+  assert.equal(autostartSupported({ platform: 'linux', env: { APPIMAGE: '/opt/Personal Monitor.AppImage' } }), true);
   assert.equal(autostartSupported({ platform: 'linux', env: {} }), false);
   assert.equal(autostartSupported({ platform: 'linux', env: { APPIMAGE: '' } }), false);
   assert.equal(autostartSupported({ platform: 'darwin', env: { APPIMAGE: '/x.AppImage' } }), false);
@@ -29,20 +29,20 @@ test('autostartSupported requires linux and a running AppImage', () => {
 test('desktopFilePath honors XDG_CONFIG_HOME and falls back to ~/.config', () => {
   assert.equal(
     desktopFilePath({ env: { XDG_CONFIG_HOME: '/custom/config' } }),
-    '/custom/config/autostart/token-monitor.desktop'
+    '/custom/config/autostart/personal-monitor.desktop'
   );
   assert.equal(
     desktopFilePath({ env: { HOME: '/home/frank' } }),
-    '/home/frank/.config/autostart/token-monitor.desktop'
+    '/home/frank/.config/autostart/personal-monitor.desktop'
   );
 });
 
 test('desktopFileContents produces a desktop entry pointing at the AppImage', () => {
-  const contents = desktopFileContents('/opt/apps/Token Monitor.AppImage');
+  const contents = desktopFileContents('/opt/apps/Personal Monitor.AppImage');
   assert.match(contents, /^\[Desktop Entry\]\n/);
   assert.match(contents, /\nType=Application\n/);
-  assert.match(contents, /\nName=Token Monitor\n/);
-  assert.match(contents, /\nExec="\/opt\/apps\/Token Monitor\.AppImage"\n/);
+  assert.match(contents, /\nName=Personal Monitor\n/);
+  assert.match(contents, /\nExec="\/opt\/apps\/Personal Monitor\.AppImage"\n/);
   assert.match(contents, /\nX-GNOME-Autostart-enabled=true\n/);
   assert.ok(contents.endsWith('\n'));
 });
@@ -54,25 +54,25 @@ test('desktopFileContents escapes reserved characters inside the quoted Exec arg
 });
 
 test('desktopFileContents escapes literal percent signs in Exec arguments', () => {
-  const contents = desktopFileContents('/opt/apps/Token Monitor 100%.AppImage');
+  const contents = desktopFileContents('/opt/apps/Personal Monitor 100%.AppImage');
   const execLine = contents.split('\n').find((line) => line.startsWith('Exec='));
-  assert.equal(execLine, 'Exec="/opt/apps/Token Monitor 100%%.AppImage"');
+  assert.equal(execLine, 'Exec="/opt/apps/Personal Monitor 100%%.AppImage"');
 });
 
 test('setAutostartEnabled(true) writes the desktop file, creating the autostart dir', () => {
   const configHome = tmpConfigHome();
-  const env = { XDG_CONFIG_HOME: configHome, APPIMAGE: '/opt/Token Monitor.AppImage' };
+  const env = { XDG_CONFIG_HOME: configHome, APPIMAGE: '/opt/Personal Monitor.AppImage' };
   assert.equal(isAutostartEnabled({ env }), false);
   assert.equal(setAutostartEnabled(true, { env }), true);
   assert.equal(isAutostartEnabled({ env }), true);
-  const written = fs.readFileSync(path.join(configHome, 'autostart', 'token-monitor.desktop'), 'utf8');
-  assert.match(written, /Exec="\/opt\/Token Monitor\.AppImage"/);
+  const written = fs.readFileSync(path.join(configHome, 'autostart', 'personal-monitor.desktop'), 'utf8');
+  assert.match(written, /Exec="\/opt\/Personal Monitor\.AppImage"/);
 });
 
 test('isAutostartEnabled requires the desktop file to target the current AppImage', () => {
   const configHome = tmpConfigHome();
-  const env = { XDG_CONFIG_HOME: configHome, APPIMAGE: '/opt/Token Monitor.AppImage' };
-  const staleEnv = { XDG_CONFIG_HOME: configHome, APPIMAGE: '/old/Token Monitor.AppImage' };
+  const env = { XDG_CONFIG_HOME: configHome, APPIMAGE: '/opt/Personal Monitor.AppImage' };
+  const staleEnv = { XDG_CONFIG_HOME: configHome, APPIMAGE: '/old/Personal Monitor.AppImage' };
   setAutostartEnabled(true, { env: staleEnv });
   assert.equal(isAutostartEnabled({ env }), false);
   assert.equal(setAutostartEnabled(true, { env }), true);
@@ -81,7 +81,7 @@ test('isAutostartEnabled requires the desktop file to target the current AppImag
 
 test('setAutostartEnabled(false) removes the desktop file and is idempotent', () => {
   const configHome = tmpConfigHome();
-  const env = { XDG_CONFIG_HOME: configHome, APPIMAGE: '/opt/Token Monitor.AppImage' };
+  const env = { XDG_CONFIG_HOME: configHome, APPIMAGE: '/opt/Personal Monitor.AppImage' };
   setAutostartEnabled(true, { env });
   assert.equal(setAutostartEnabled(false, { env }), false);
   assert.equal(isAutostartEnabled({ env }), false);

@@ -15,7 +15,7 @@ Authorization: Bearer <secret>
 or:
 
 ```http
-X-Token-Monitor-Secret: <secret>
+X-Personal-Monitor-Secret: <secret>
 ```
 
 ## `GET /api/health`
@@ -118,7 +118,7 @@ Example payload:
         "startedAt": "2026-05-30T03:44:50.000Z",
         "lastUsedAt": "2026-05-30T04:07:32.679Z",
         "projectId": "sha256:opaque-project-identifier",
-        "projectLabel": "token-monitor",
+        "projectLabel": "personal-monitor",
         "models": {
           "gpt-5": 1234
         },
@@ -144,7 +144,7 @@ Example payload:
     "clientCosts": {},
     "projects": {
       "token monitor": {
-        "label": "Token Monitor",
+        "label": "Personal Monitor",
         "tokens": 8901,
         "costUsd": 0.08,
         "clients": { "codex": 8901 }

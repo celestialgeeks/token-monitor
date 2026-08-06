@@ -1,5 +1,5 @@
 {
-  "name": "token-monitor-site",
+  "name": "personal-monitor-site",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,5 +12,6 @@
   },
   "devDependencies": {
     "esbuild": "0.28.1"
-  }
+  },
+  "version": "1.0.0"
 }
