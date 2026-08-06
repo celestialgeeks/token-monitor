@@ -58,9 +58,12 @@
   }
 
   function heatmapIntensity(value, max) {
-    if (max <= 0) return 0;
-    const ratio = n(value) / max;
-    return ratio >= 0.75 ? 4 : ratio >= 0.5 ? 3 : ratio >= 0.25 ? 2 : ratio > 0 ? 1 : 0;
+    const v = Math.max(0, Number(value) || 0);
+    const m = Math.max(0, Number(max) || 0);
+    if (m <= 0 || v <= 0) return 0;
+    if (v >= m) return 4;
+    const ratio = Math.log(v + 1) / Math.log(m + 1);
+    return ratio >= 0.75 ? 4 : ratio >= 0.5 ? 3 : ratio >= 0.25 ? 2 : 1;
   }
 
   // Derive both metrics from the raw values at render time. This keeps preview

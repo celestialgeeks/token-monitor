@@ -15,6 +15,8 @@
     "sync:worker": "node scripts/sync-worker-shared.js",
     "pack": "electron-builder --dir",
     "dist:mac": "electron-builder --mac --arm64 --publish never",
+    "dist:mac:unsigned": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arm64 --publish never -c.mac.forceCodeSigning=false -c.mac.identity=null",
+    "release:local": "npm run dist:mac:unsigned && gh release create v$npm_package_version -t \"v$npm_package_version\" -n \"Local Release\" dist/Personal-Monitor-$npm_package_version-arm64.dmg dist/Personal-Monitor-$npm_package_version-arm64.zip dist/latest-mac.yml dist/*.blockmap",
     "dist:mac:x64": "electron-builder --mac --x64 --publish never",
     "dist:win": "electron-builder --win --x64 --publish never",
     "dist:win:dir": "electron-builder --win dir --x64 --publish never",

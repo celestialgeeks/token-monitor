@@ -5760,8 +5760,23 @@ function homeLimitRows() {
   const providerOrder = state.settings?.homeLimitProviderOrder || state.settings?.limitProviderOrder;
   const providerOptions = limitProviderOrderApi.orderedLimitProviders(LIMIT_PROVIDERS, providerOrder);
   const hasConfiguredOrder = Boolean(state.settings?.homeLimitProviderOrder);
+  
+  const providersRaw = state.stats?.limits?.providers || [];
+  const providersById = new Map();
+  for (const provider of providersRaw) {
+    const id = String(provider?.provider || '').trim().toLowerCase();
+    if (!providersById.has(id)) providersById.set(id, []);
+    providersById.get(id).push(provider);
+  }
+  const activeFilteredProviders = [];
+  for (const entries of providersById.values()) {
+    const active = entries.filter(p => p.activeAccount);
+    if (active.length > 0) activeFilteredProviders.push(...active);
+    else activeFilteredProviders.push(...entries);
+  }
+
   return homeOverviewApi.homeLimitAccountsForProviders({
-    providers: (state.stats?.limits?.providers || []).map((provider) => ({
+    providers: activeFilteredProviders.map((provider) => ({
       ...provider,
       windows: limitProviderPresentationApi.limitProviderCompactWindows(provider, provider.windows)
     })),

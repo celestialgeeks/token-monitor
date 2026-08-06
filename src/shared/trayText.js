@@ -155,8 +155,23 @@
 
   function pickWorstLimitProvider(stats, options = {}) {
     const requestedKind = String(options.kind || '').trim().toLowerCase();
+    const providersRaw = stats?.limits?.providers || [];
+    const providersById = new Map();
+    for (const provider of providersRaw) {
+      const id = normalizedProviderId(provider?.provider);
+      if (!id) continue;
+      if (!providersById.has(id)) providersById.set(id, []);
+      providersById.get(id).push(provider);
+    }
+    const activeFilteredProviders = [];
+    for (const entries of providersById.values()) {
+      const active = entries.filter(p => p.activeAccount);
+      if (active.length > 0) activeFilteredProviders.push(...active);
+      else activeFilteredProviders.push(...entries);
+    }
+
     let worst = null;
-    for (const provider of stats?.limits?.providers || []) {
+    for (const provider of activeFilteredProviders) {
       const selection = compactLimitSelection(provider);
       if (!selection) continue;
       const candidates = [selection.primaryWindow, selection.secondaryWindow].filter(Boolean);
@@ -227,11 +242,18 @@
       if (!byId.has(id)) byId.set(id, []);
       byId.get(id).push(provider);
     }
+    
+    const activeFilteredById = new Map();
+    for (const [id, entries] of byId.entries()) {
+      const active = entries.filter(p => p.activeAccount);
+      if (active.length > 0) activeFilteredById.set(id, active);
+      else activeFilteredById.set(id, entries);
+    }
 
     const picks = [];
     for (const id of configuredProviderOrder(providers, options)) {
       let pick = null;
-      for (const provider of byId.get(id) || []) {
+      for (const provider of activeFilteredById.get(id) || []) {
         const selection = compactLimitSelection(provider);
         if (!selection) continue;
         const showUsed = Boolean(options.showLimitUsed);
