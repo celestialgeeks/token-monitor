@@ -3,7 +3,7 @@
 </p>
 <div align="center">
     <img src=".github/assets/app.png" alt="Token Monitor logo" width="120">
-    <h1>Token Monitor</h1>
+    <h1>Router X Token Monitor</h1>
 </div>
 
 <p align="center">
