@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Token Monitor</title>
+    <title>Routed Monitoring</title>
     <script src="floatingBubbleBoot.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -11,7 +11,7 @@
     <main class="shell">
       <header class="titlebar">
         <div>
-          <div class="app-title"><span class="app-title-text">Token Monitor</span><span class="app-title-mark" aria-hidden="true">Σ</span><span id="liveDot" class="live-dot" title="Stream offline"></span><span id="tokenRateReveal" class="token-rate-reveal" aria-hidden="true"></span><span class="app-title-measure" aria-hidden="true">Token Monitor</span></div>
+          <div class="app-title"><span class="app-title-text">Routed Monitoring</span><span class="app-title-mark" aria-hidden="true">Σ</span><span id="liveDot" class="live-dot" title="Stream offline"></span><span id="tokenRateReveal" class="token-rate-reveal" aria-hidden="true"></span><span class="app-title-measure" aria-hidden="true">Routed Monitoring</span></div>
           <div id="status" class="status">Starting</div>
         </div>
         <div class="title-controls">
@@ -117,7 +117,7 @@
                       <div class="maintenance-version-item"><span><span data-i18n="settings.tokscale.npm">On npm</span> <small data-i18n="settings.tokscale.latestTag">(latest tag)</small></span><strong id="tokscaleNpm" data-i18n="settings.common.notChecked">Not checked</strong></div>
                       <div id="tokscaleBundledLine" class="maintenance-version-item"><span data-i18n="settings.tokscale.bundled">Bundled</span><strong id="tokscaleBundled">—</strong></div>
                     </div>
-                    <p class="settings-note"><span data-i18n="settings.tokscale.noteBefore">Token Monitor uses tokscale (MIT, open-source) to read token data.</span> <button id="openTokscaleLinkButton" type="button" class="inline-link" data-i18n="settings.tokscale.learnMore">Learn more</button></p>
+                    <p class="settings-note"><span data-i18n="settings.tokscale.noteBefore">Routed Monitoring uses tokscale (MIT, open-source) to read token data.</span> <button id="openTokscaleLinkButton" type="button" class="inline-link" data-i18n="settings.tokscale.learnMore">Learn more</button></p>
                     <div id="tokscaleMessage" class="tokscale-message"></div>
                     <div class="settings-actions maintenance-actions">
                       <button id="checkTokscaleButton" type="button" data-i18n="settings.tokscale.checkNpm">Check npm</button>
@@ -135,7 +135,7 @@
               </div>
             </div>
             <div class="settings-subgroup about-settings">
-              <div class="settings-group-header"><span data-i18n="settings.about.title">About Token Monitor</span><span id="aboutVersion">—</span></div>
+              <div class="settings-group-header"><span data-i18n="settings.about.title">About Routed Monitoring</span><span id="aboutVersion">—</span></div>
               <p class="settings-note" data-i18n="settings.about.description">Open-source AI tool token usage monitor, licensed under MIT.</p>
               <div class="about-settings-links">
                 <button id="openRepositoryButton" type="button" class="inline-link" data-i18n="settings.about.repository">GitHub</button>
@@ -268,7 +268,7 @@
                     </select>
                   </label>
                   <div id="trayComposer" class="tray-composer hidden" data-surface="tray"></div>
-                  <label class="checkbox-label settings-item"><span class="settings-item-text"><span class="settings-item-title" data-i18n="settings.display.trayProviderBadge">Show Token Monitor badge on provider icons</span></span><input id="showTrayProviderBadgeInput" type="checkbox" /></label>
+                  <label class="checkbox-label settings-item"><span class="settings-item-text"><span class="settings-item-title" data-i18n="settings.display.trayProviderBadge">Show Routed Monitoring badge on provider icons</span></span><input id="showTrayProviderBadgeInput" type="checkbox" /></label>
                   <label class="checkbox-label settings-item"><span class="settings-item-text"><span class="settings-item-title" data-i18n="settings.display.trayMode">Tray-only mode</span></span><input id="trayModeInput" type="checkbox" /></label>
                   <div id="trayOptions" class="presence-feature-body hidden">
                     <p class="settings-note" data-i18n="settings.display.trayNote">Hide the main window; show a popover from the macOS menu bar or Windows system tray.</p>
@@ -902,24 +902,55 @@
                 </span>
               </button>
               <div id="ollamaSettingsDetails" class="cursor-settings-details hidden">
-                <div class="settings-actions">
-                  <button id="ollamaOpenBrowser" data-i18n="settings.ollama.openBrowser">Open Ollama settings</button>
-                  <button id="ollamaLogoutButton" class="hidden" data-i18n="settings.ollama.clearCookie">Clear cookie</button>
-                  <button id="ollamaRefreshButton" data-i18n="settings.common.refresh">Refresh</button>
-                </div>
-                <div id="ollamaManualPanel">
-                  <p class="settings-note">
-                    <strong>1.</strong> <span data-i18n="settings.ollama.step1">Open Ollama settings in your browser (button above) and sign in.</span><br>
-                    <strong>2.</strong> <span data-i18n="settings.ollama.step2">Open DevTools (F12 or Cmd+Opt+I) -> Network, reload the page, then select the settings document request.</span><br>
-                    <strong>3.</strong> <span data-i18n="settings.ollama.step3">In Headers -> Request Headers, copy the full Cookie value.</span><br>
-                    <strong>4.</strong> <span data-i18n="settings.ollama.step4">Paste it below and click Save cookie.</span>
-                  </p>
-                  <textarea id="ollamaCookieInput" rows="3" spellcheck="false" placeholder="wos-session=..." data-i18n-placeholder="settings.ollama.cookiePlaceholder"></textarea>
-                  <div class="settings-actions">
-                    <button id="ollamaCookieSubmit" data-i18n="settings.ollama.saveCookie">Save cookie</button>
+                <div id="ollamaAccountList" class="managed-account-list"></div>
+                <div id="ollamaAccountEmpty" class="opencode-empty" data-i18n="settings.ollama.emptyList">No accounts yet. Click "+ Add account" below to get started.</div>
+                <div id="ollamaManualPanel" class="opencode-add-form">
+                  <div style="display: flex; gap: 8px;">
+                    <button id="ollamaAddToggle" class="opencode-add-summary" type="button" aria-expanded="false" aria-controls="ollamaAddDetails" style="flex: 1; border-radius: 6px;">
+                      <svg class="add-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                      <span data-i18n="settings.ollama.addAccount">Add account</span>
+                    </button>
+                    <button id="ollamaUploadToggle" class="opencode-add-summary" type="button" aria-expanded="false" aria-controls="ollamaUploadDetails" style="flex: 1; border-radius: 6px;">
+                      <svg class="add-icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                      <span>Upload cookie</span>
+                    </button>
+                  </div>
+                  <div id="ollamaAddDetails" class="opencode-add-details accordion-animated-container hidden">
+                    <div class="accordion-animation-inner opencode-add-body">
+                      <div class="settings-actions">
+                        <button id="ollamaOpenBrowser" type="button" data-i18n="settings.ollama.openBrowser">Open Ollama settings</button>
+                      </div>
+                      <p class="settings-note">
+                        <strong>1.</strong> <span data-i18n="settings.ollama.step1">Open Ollama settings in your browser (button above) and sign in.</span><br>
+                        <strong>2.</strong> <span data-i18n="settings.ollama.step2">Open DevTools (F12 or Cmd+Opt+I) -> Network, reload the page, then select the settings document request.</span><br>
+                        <strong>3.</strong> <span data-i18n="settings.ollama.step3">In Headers -> Request Headers, copy the full Cookie value.</span><br>
+                        <strong>4.</strong> <span data-i18n="settings.ollama.step4">Paste it below and click Save cookie.</span>
+                      </p>
+                      <textarea id="ollamaCookieInput" rows="3" spellcheck="false" placeholder="wos-session=..." data-i18n-placeholder="settings.ollama.cookiePlaceholder"></textarea>
+                      <div class="settings-actions">
+                        <button id="ollamaSaveAccountButton" data-i18n="settings.ollama.saveAccount">Add account</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="ollamaUploadDetails" class="opencode-add-details accordion-animated-container hidden">
+                    <div class="accordion-animation-inner opencode-add-body">
+                      <p class="settings-note">
+                        <strong>1.</strong> Create a .txt file containing the API keys and the Cookie.<br>
+                        <strong>2.</strong> Ensure the Cookie is present in the format <code>aid=...; __Secure-session=...</code>.<br>
+                        <strong>3.</strong> Click the button below to upload the file.
+                      </p>
+                      <div class="settings-actions">
+                        <input type="file" id="ollamaCookieUploadFile" accept=".txt" multiple hidden="hidden" style="display: none !important; position: absolute; width: 0; height: 0;" />
+                        <button id="ollamaCookieUploadButtonDirect" type="button">Choose file to upload</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div id="ollamaErrorMessage" class="settings-note error hidden"></div>
+                <div id="ollamaAccountErrorMessage" class="settings-note error hidden"></div>
               </div>
             </div>
             <div id="kimiAccountGroup" class="settings-group cursor-account-group">
@@ -1275,6 +1306,39 @@
           </div>
         </div>
 
+        <div class="settings-group settings-collapsible-group settings-limits-group">
+          <button class="settings-section-toggle" type="button" data-settings-section="routing" aria-expanded="false" aria-controls="routingSettingsDetails">
+            <span class="settings-section-heading"><span class="settings-section-icon settings-section-icon-limits" aria-hidden="true"></span><span>FreeLLM Routing</span></span>
+            <span class="settings-section-meta"><span id="routingSettingsSummary" class="settings-section-summary"></span><span class="settings-section-disclosure" aria-hidden="true"></span></span>
+          </button>
+          <div id="routingSettingsDetails" class="settings-section-details hidden">
+            <div class="settings-subgroup">
+              <label class="checkbox-label settings-item"><span class="settings-item-text"><span class="settings-item-title">Enable local Ollama routing</span><span class="settings-note settings-item-desc">Runs only while Routed Monitoring is open. Keys rotate using the linked Ollama account’s monitored quota.</span></span><input id="freeLlmEnabledInput" type="checkbox" /></label>
+              <div class="settings-item"><span class="settings-item-text"><span class="settings-item-title">OpenAI-compatible endpoint</span><span id="freeLlmEndpoint" class="settings-note settings-item-desc">Not running</span></span><button id="freeLlmCopyEndpoint" type="button">Copy</button></div>
+            </div>
+            <div class="settings-subgroup">
+              <div class="settings-group-header"><span>Ollama API keys</span></div>
+              <div id="freeLlmKeyList" class="managed-account-list"></div>
+              <p id="freeLlmKeyEmpty" class="settings-note">Add a key for each monitored Ollama account you want to route through.</p>
+              <div class="opencode-add-form expanded">
+                <div class="opencode-add-details">
+                  <div class="opencode-add-body">
+                    <label class="settings-field"><span>Label (optional)</span><input id="freeLlmKeyLabel" type="text" maxlength="80" autocomplete="off" placeholder="Personal Ollama" /></label>
+                    <label class="settings-field"><span>Monitored Ollama account</span><select id="freeLlmAccountSelect"></select></label>
+                    <label class="settings-field"><span>Ollama API key</span><input id="freeLlmApiKey" type="password" autocomplete="off" spellcheck="false" placeholder="Paste API key" /></label>
+                    <div class="settings-actions">
+                      <button id="freeLlmAddKey" type="button">Add API key</button>
+                      <input type="file" id="freeLlmBulkUploadFile" accept=".txt" multiple hidden style="display:none!important;position:absolute;width:0;height:0;" />
+                      <button id="freeLlmBulkUploadButton" type="button">Upload API keys from file</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p id="freeLlmError" class="settings-note error hidden" role="alert"></p>
+            </div>
+          </div>
+        </div>
+
         <div class="settings-group settings-collapsible-group settings-sync-group">
           <button class="settings-section-toggle" type="button" data-settings-section="sync" aria-expanded="false" aria-controls="syncSettingsDetails">
             <span class="settings-section-heading"><span class="settings-section-icon settings-section-icon-sync" aria-hidden="true"></span><span data-i18n="settings.sync.title">Multi-device Sync</span></span>
@@ -1326,7 +1390,7 @@
               <div id="hubStatusRow" class="hub-status"></div>
               <div id="hubAddressList" class="hub-address-list"></div>
               <p class="settings-note" data-i18n="settings.sync.hostNote">Other devices connect using one of the URLs above with the shared secret. macOS / Windows may prompt to allow incoming connections the first time. For cross-network use, run Tailscale or ZeroTier on both sides - the virtual IP works the same.</p>
-              <p class="settings-note hub-warning" data-i18n="settings.sync.hostWarning">The hub runs while Token Monitor is running. Quitting (not just closing the window) stops the hub for all connected devices.</p>
+              <p class="settings-note hub-warning" data-i18n="settings.sync.hostWarning">The hub runs while Routed Monitoring is running. Quitting (not just closing the window) stops the hub for all connected devices.</p>
             </div>
             <label><span data-i18n="settings.sync.deviceId">Device ID</span><input id="deviceIdInput" type="text" spellcheck="false" placeholder="auto (hostname)" data-i18n-placeholder="settings.sync.deviceIdPlaceholder" /></label>
             <div class="settings-actions">
@@ -1387,7 +1451,7 @@
         </div>
       </div>
     </main>
-    <button id="floatingBubbleTab" class="floating-bubble-tab" type="button" title="Show Token Monitor" aria-label="Show Token Monitor" data-i18n-title="floatingBubble.expand" data-i18n-aria-label="floatingBubble.expand">
+    <button id="floatingBubbleTab" class="floating-bubble-tab" type="button" title="Show Routed Monitoring" aria-label="Show Routed Monitoring" data-i18n-title="floatingBubble.expand" data-i18n-aria-label="floatingBubble.expand">
       <span id="floatingBubbleContent" aria-hidden="true">Σ</span>
     </button>
     <script src="../../shared/limitBalanceDisplay.js"></script>

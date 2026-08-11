@@ -4,44 +4,47 @@
 
 <!-- app-update-notes:en:start -->
 ### Added
-- **Per-tool health details:** Settings > Tools now shows expandable details for each tracked AI tool, including its Source, Collection status, recent output, and counted Usage. You can re-scan a tool or show its source in the file manager when investigating missing or stale data. (#328, #331)
+- **Token throughput:** Hover the compact `Σ` title mark or live dot to reveal the current reading, then click to switch between output `tok/s` and total `tok/min`; the choice is remembered. (#296)
 
 ### Improved
-- **Antigravity usage:** Live tracking now refreshes Antigravity usage when its source data changes, including IDE-only installations, instead of waiting for the next scheduled collection. (#319)
-- **Tracked tools:** Drag-to-reorder is smoother: the entire tracked-tool row is now the reorder target, while Track and Show controls retain their existing actions. (#327)
+- **Windows session details:** Claude and Codex transcripts stored in running WSL homes can now open from the Sessions view without blocking the Electron main process. (#297)
+- **Home limits:** Home limit rows are more compact and aligned.
+- **AI Tool Limits details:** Codex reset counts and Claude prepaid grants now show precise expiry times, including when there is only one entry.
 
 ### Fixed
-- **Trends (DAY):** The DAY preview now keeps the latest seven local calendar dates, including zero-use dates, and places today's live total on today's date instead of shifting it onto the last recorded day. (#335)
-- **Grok Build usage:** Grok session files with usage data no longer appear as zero or lose their token breakdown; input, output, cached-read, and reasoning tokens are now collected correctly. (#333)
+- **Window state:** Maximized windows now restore maximized after restart without losing their normal size; tray popovers and collapsed floating bubbles no longer overwrite normal window bounds. (#300)
+- **Manual refresh:** Clicking Refresh now updates Cursor and Antigravity usage with fresh data instead of showing values up to five minutes old. (#290)
+- **MiMo and Kimi limits:** When usage exceeds the limit, the remaining percentage now correctly shows **0%** instead of nearly **99%**. (#294)
+- **Windows Codex checks:** The app no longer crashes when `taskkill.exe` cannot be resolved. (#291)
 <!-- app-update-notes:en:end -->
 
 ## Download
 
-- **macOS Apple Silicon** — [Token-Monitor-0.41.0-arm64.dmg](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0-arm64.dmg)
-- **macOS Intel** — [Token-Monitor-0.41.0-x64.dmg](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0-x64.dmg)
-- **Windows Installer** — [Token-Monitor-Setup-0.41.0.exe](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-Setup-0.41.0.exe) (recommended)
-- **Windows Portable** — [Token-Monitor-0.41.0.exe](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0.exe) (no install required)
-- **Linux x64** — [Token-Monitor-0.41.0.AppImage](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0.AppImage)
+- **macOS Apple Silicon** — [Routed-Monitoring-1.0.8-arm64.dmg](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8-arm64.dmg)
+- **macOS Intel** — [Routed-Monitoring-1.0.8-x64.dmg](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8-x64.dmg)
+- **Windows Installer** — [Routed-Monitoring-Setup-1.0.8.exe](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-Setup-1.0.8.exe) (recommended)
+- **Windows Portable** — [Routed-Monitoring-1.0.8.exe](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8.exe) (no install required)
+- **Linux x64** — [Routed-Monitoring-1.0.8.AppImage](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8.AppImage)
 
 <details>
 <summary><strong>First launch and other notes</strong></summary>
 
 ### First launch
 
-**macOS:** the app is Developer ID-signed and notarized by Apple. Open the `.dmg`, then drag Token Monitor to Applications.
+**macOS:** the app is Developer ID-signed and notarized by Apple. Open the `.dmg`, then drag Routed Monitoring to Applications.
 
-**Windows:** both executables are signed ([how to verify](https://github.com/Javis603/token-monitor/blob/main/docs/code-signing.md#verify-a-download)).
+**Windows:** both executables are signed ([how to verify](https://github.com/celestialgeeks/router-x-token-monitor/blob/main/docs/code-signing.md#verify-a-download)).
 
 **Linux:** mark the AppImage executable, then run it:
 
 ```bash
-chmod +x "Token Monitor"*.AppImage
-./"Token Monitor"*.AppImage
+chmod +x "Routed Monitoring"*.AppImage
+./"Routed Monitoring"*.AppImage
 ```
 
 ### Other notes
 
-Other platforms are not pre-built — run from source per the [README](https://github.com/Javis603/token-monitor#readme). The macOS `.zip` is the same app repackaged; ignore it unless you specifically need it.
+Other platforms are not pre-built — run from source per the [README](https://github.com/celestialgeeks/router-x-token-monitor#readme). The macOS `.zip` is the same app repackaged; ignore it unless you specifically need it.
 
 ### tokscale dependency
 
@@ -59,44 +62,47 @@ open-source: https://github.com/junhoyeo/tokscale
 
 <!-- app-update-notes:zh:start -->
 ### 新增
-- **逐工具健康详情：** 「设置 > 工具」现在可展开查看每个已追踪 AI 工具的「来源」「采集」状态、最近产出和已计入的「用量」。遇到缺失或过旧的数据时，还可以重新扫描工具，或在文件管理器中显示其数据位置。（#328、#331）
+- **Token 吞吐量：** 将鼠标悬停在紧凑 `Σ` 标题标记或实时指示点上即可查看当前读数，点击可在输出 `tok/s` 与总 Token `tok/min` 之间切换，选择会被记住。（#296）
 
 ### 改进
-- **Antigravity 用量：** 支持实时追踪 Antigravity 的源数据，包括仅安装 IDE 的情况；用量会在活动发生后更新，不必等到下一次定时采集。（#319）
-- **工具列表：** 优化拖动排序体验：现在可以拖动整个工具行重新排序，同时保留「追踪」和「显示」控件原有的操作。（#327）
+- **Windows 会话详情：** 存放在运行中 WSL 主目录的 Claude 与 Codex 会话，现在可以从会话视图打开，且不会阻塞 Electron 主进程。（#297）
+- **主页额度：** 主页额度条目现在更紧凑、对齐更整齐。
+- **AI 工具额度详情：** Codex 重置次数和 Claude 预付额度现在会显示精确的到期时间，包括只有一条记录时。
 
 ### 修复
-- **趋势（DAY）：** DAY 预览现在会保留最近七个本地日历日期，包括用量为零的日期，并将今天的实时总量显示在今天，而不是移到最后一个有记录的日期。（#335）
-- **Grok Build 用量：** 已修复含有用量数据的 Grok 会话文件显示为 0 或缺少 Tokens 明细的问题；现在可以正确采集输入、输出、缓存命中和推理 Tokens。（#333）
+- **窗口状态：** 窗口最大化后重启会恢复最大化，同时保留原本的普通窗口大小；托盘弹窗和收起的浮动气泡不再覆盖普通窗口大小。（#300）
+- **手动刷新：** 点击刷新后，Cursor 与 Antigravity 的用量会更新为最新数据，不再显示最多五分钟的旧数据。（#290）
+- **MiMo 与 Kimi 额度：** 使用量超过上限时，剩余比例现在会正确显示为 **0%**，不再错误地显示为接近 **99%**。（#294）
+- **Windows Codex 额度检查：** 找不到 `taskkill.exe` 时不再导致应用崩溃。（#291）
 <!-- app-update-notes:zh:end -->
 
 ## 下载
 
-- **macOS Apple Silicon** — [Token-Monitor-0.41.0-arm64.dmg](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0-arm64.dmg)
-- **macOS Intel** — [Token-Monitor-0.41.0-x64.dmg](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0-x64.dmg)
-- **Windows 安装版** — [Token-Monitor-Setup-0.41.0.exe](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-Setup-0.41.0.exe)（推荐）
-- **Windows 便携版** — [Token-Monitor-0.41.0.exe](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0.exe)（免安装）
-- **Linux x64** — [Token-Monitor-0.41.0.AppImage](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0.AppImage)
+- **macOS Apple Silicon** — [Routed-Monitoring-1.0.8-arm64.dmg](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8-arm64.dmg)
+- **macOS Intel** — [Routed-Monitoring-1.0.8-x64.dmg](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8-x64.dmg)
+- **Windows 安装版** — [Routed-Monitoring-Setup-1.0.8.exe](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-Setup-1.0.8.exe)（推荐）
+- **Windows 便携版** — [Routed-Monitoring-1.0.8.exe](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8.exe)（免安装）
+- **Linux x64** — [Routed-Monitoring-1.0.8.AppImage](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8.AppImage)
 
 <details>
 <summary><strong>首次启动与其他说明</strong></summary>
 
 ### 首次启动
 
-**macOS：** 应用已使用 Developer ID 签名并通过 Apple 公证。打开 `.dmg`，然后把 Token Monitor 拖到 Applications。
+**macOS：** 应用已使用 Developer ID 签名并通过 Apple 公证。打开 `.dmg`，然后把 Routed Monitoring 拖到 Applications。
 
-**Windows：** 两个可执行文件均已签名（[查看验证方法](https://github.com/Javis603/token-monitor/blob/main/docs/code-signing.md#verify-a-download)）。
+**Windows：** 两个可执行文件均已签名（[查看验证方法](https://github.com/celestialgeeks/router-x-token-monitor/blob/main/docs/code-signing.md#verify-a-download)）。
 
 **Linux：** 先给 AppImage 执行权限，然后运行：
 
 ```bash
-chmod +x "Token Monitor"*.AppImage
-./"Token Monitor"*.AppImage
+chmod +x "Routed Monitoring"*.AppImage
+./"Routed Monitoring"*.AppImage
 ```
 
 ### 其他说明
 
-其他平台暂不提供预构建版本，请参考 [README](https://github.com/Javis603/token-monitor#readme) 从源码运行。macOS 的 `.zip` 只是同一个 app 的重新打包版本，除非你明确需要，否则可以忽略。
+其他平台暂不提供预构建版本，请参考 [README](https://github.com/celestialgeeks/router-x-token-monitor#readme) 从源码运行。macOS 的 `.zip` 只是同一个 app 的重新打包版本，除非你明确需要，否则可以忽略。
 
 ### tokscale 依赖
 
@@ -108,7 +114,7 @@ https://github.com/junhoyeo/tokscale
 
 ---
 
-**Full Changelog:** [v0.40.0...v0.41.0](https://github.com/Javis603/token-monitor/compare/v0.40.0...v0.41.0)
+**Full Changelog:** [v0.38.0...v1.0.8](https://github.com/celestialgeeks/router-x-token-monitor/compare/v0.38.0...v1.0.8)
 
 <details>
 <summary>繁體中文 · 한국어 · 日本語</summary>
@@ -122,24 +128,27 @@ https://github.com/junhoyeo/tokscale
 
 <!-- app-update-notes:zh-TW:start -->
 ### 新增
-- **逐工具健康詳情：** 「設定 > 工具」現在可展開查看每個已追蹤 AI 工具的「來源」「採集」狀態、最後產出和已計入的「用量」。遇到缺失或過舊的資料時，還可以重新掃描工具，或在檔案管理員中顯示其資料位置。（#328、#331）
+- **Token 吞吐量：** 將滑鼠移到精簡 `Σ` 標題標記或即時指示點，即可查看目前讀數；點擊可在輸出 `tok/s` 與總 Token `tok/min` 之間切換，選擇會被記住。（#296）
 
 ### 改進
-- **Antigravity 用量：** 支援即時追蹤 Antigravity 的來源資料，包括僅安裝 IDE 的情況；用量會在活動發生後更新，不必等到下一次定時採集。（#319）
-- **工具列表：** 優化拖曳排序體驗：現在可以拖曳整個工具列重新排序，同時保留「追蹤」和「顯示」控制項原有的操作。（#327）
+- **Windows 會話詳細資訊：** 儲存在執行中 WSL 主目錄的 Claude 與 Codex 會話，現在可以從會話檢視開啟，而且不會阻塞 Electron 主程序。（#297）
+- **主頁額度：** 主頁額度列現在更精簡、對齊更整齊。
+- **AI 工具額度詳細資訊：** Codex 重設次數與 Claude 預付額度現在會顯示精確的到期時間，即使只有一筆記錄也會顯示。
 
 ### 修復
-- **趨勢（DAY）：** DAY 預覽現在會保留最近七個本地日曆日期，包括用量為零的日期，並將今天的即時總量顯示在今天，而不是移到最後一個有紀錄的日期。（#335）
-- **Grok Build 用量：** 已修正含有用量資料的 Grok 會話檔案顯示為 0 或缺少 Tokens 明細的問題；現在可以正確採集輸入、輸出、快取命中和推理 Tokens。（#333）
+- **視窗狀態：** 視窗最大化後重新啟動會恢復最大化，同時保留原本的一般視窗大小；系統匣彈出視窗和收起的浮動氣泡不再覆蓋一般視窗大小。（#300）
+- **手動重新整理：** 點擊重新整理後，Cursor 與 Antigravity 的用量會更新為最新資料，不再顯示最多五分鐘的舊資料。（#290）
+- **MiMo 與 Kimi 額度：** 使用量超過上限時，剩餘比例現在會正確顯示為 **0%**，不再錯誤地顯示為接近 **99%**。（#294）
+- **Windows Codex 額度檢查：** 找不到 `taskkill.exe` 時不再導致應用程式崩潰。（#291）
 <!-- app-update-notes:zh-TW:end -->
 
 ## 下載
 
-- **macOS Apple Silicon** — [Token-Monitor-0.41.0-arm64.dmg](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0-arm64.dmg)
-- **macOS Intel** — [Token-Monitor-0.41.0-x64.dmg](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0-x64.dmg)
-- **Windows 安裝版** — [Token-Monitor-Setup-0.41.0.exe](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-Setup-0.41.0.exe)（推薦）
-- **Windows 便攜版** — [Token-Monitor-0.41.0.exe](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0.exe)（免安裝）
-- **Linux x64** — [Token-Monitor-0.41.0.AppImage](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0.AppImage)
+- **macOS Apple Silicon** — [Routed-Monitoring-1.0.8-arm64.dmg](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8-arm64.dmg)
+- **macOS Intel** — [Routed-Monitoring-1.0.8-x64.dmg](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8-x64.dmg)
+- **Windows 安裝版** — [Routed-Monitoring-Setup-1.0.8.exe](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-Setup-1.0.8.exe)（推薦）
+- **Windows 便攜版** — [Routed-Monitoring-1.0.8.exe](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8.exe)（免安裝）
+- **Linux x64** — [Routed-Monitoring-1.0.8.AppImage](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8.AppImage)
 
 </details>
 
@@ -152,24 +161,27 @@ https://github.com/junhoyeo/tokscale
 
 <!-- app-update-notes:ko:start -->
 ### 추가
-- **도구별 상태 세부 정보:** 「설정 > 도구」에서 추적 중인 각 AI 도구의 「소스」, 「수집」 상태, 마지막 출력 및 집계된 「사용량」을 펼쳐 볼 수 있습니다. 데이터가 없거나 오래된 경우 도구를 다시 검사하거나 파일 관리자에서 데이터 위치를 볼 수 있습니다. (#328, #331)
+- **토큰 처리량:** 컴팩트한 `Σ` 제목 표시나 실시간 점에 마우스를 올리면 현재 수치를 확인할 수 있고, 클릭하면 출력 `tok/s`와 전체 Token `tok/min` 사이를 전환할 수 있습니다. 선택은 저장됩니다. (#296)
 
 ### 개선
-- **Antigravity 사용량:** 이제 Antigravity 소스 데이터를 실시간으로 추적하며, IDE만 설치된 경우도 포함됩니다. 사용량이 다음 예약 수집까지 기다리지 않고 활동 후 업데이트됩니다. (#319)
-- **도구 목록:** 드래그하여 순서를 바꾸는 방식을 개선했습니다. 이제 도구 행 자체를 드래그할 수 있으며 「추적」 및 「표시」 컨트롤은 기존 동작을 유지합니다. (#327)
+- **Windows 세션 상세 정보:** 실행 중인 WSL 홈에 저장된 Claude 및 Codex 대화를 이제 세션 보기에서 열 수 있으며 Electron 메인 프로세스를 차단하지 않습니다. (#297)
+- **홈 한도:** 홈 한도 행이 더 간결해지고 정렬이 맞습니다.
+- **AI 도구 한도 상세 정보:** Codex 재설정 횟수와 Claude 선불 크레딧에 항목이 하나만 있어도 정확한 만료 시간이 표시됩니다.
 
 ### 수정
-- **추이 (DAY):** DAY 미리보기가 사용량이 0인 날짜를 포함한 최근 7개의 현지 달력 날짜를 유지하고, 오늘의 실시간 합계를 마지막 기록 날짜가 아닌 오늘 날짜에 표시합니다. (#335)
-- **Grok Build 사용량:** 사용량 데이터가 있는 Grok 세션 파일이 0으로 표시되거나 토큰 내역이 누락되던 문제가 수정되어, 입력, 출력, 캐시 적중 및 추론 토큰이 이제 정상적으로 수집됩니다. (#333)
+- **창 상태:** 최대화된 창은 다시 시작한 뒤에도 최대화 상태로 복원되며, 원래 일반 창 크기도 유지됩니다. 트레이 팝오버와 접힌 플로팅 버블이 더 이상 일반 창 크기를 덮어쓰지 않습니다. (#300)
+- **수동 새로 고침:** 새로 고침을 클릭하면 Cursor 및 Antigravity 사용량이 최신 데이터로 업데이트되어 최대 5분 전 값이 표시되지 않습니다. (#290)
+- **MiMo 및 Kimi 한도:** 사용량이 한도를 초과하면 남은 비율이 거의 **99%**가 아니라 **0%**로 정확히 표시됩니다. (#294)
+- **Windows Codex 확인:** `taskkill.exe`를 찾을 수 없어도 앱이 더 이상 충돌하지 않습니다. (#291)
 <!-- app-update-notes:ko:end -->
 
 ## 다운로드
 
-- **macOS Apple Silicon** — [Token-Monitor-0.41.0-arm64.dmg](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0-arm64.dmg)
-- **macOS Intel** — [Token-Monitor-0.41.0-x64.dmg](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0-x64.dmg)
-- **Windows 설치 버전** — [Token-Monitor-Setup-0.41.0.exe](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-Setup-0.41.0.exe) (권장)
-- **Windows 포터블 버전** — [Token-Monitor-0.41.0.exe](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0.exe) (설치 필요 없음)
-- **Linux x64** — [Token-Monitor-0.41.0.AppImage](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0.AppImage)
+- **macOS Apple Silicon** — [Routed-Monitoring-1.0.8-arm64.dmg](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8-arm64.dmg)
+- **macOS Intel** — [Routed-Monitoring-1.0.8-x64.dmg](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8-x64.dmg)
+- **Windows 설치 버전** — [Routed-Monitoring-Setup-1.0.8.exe](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-Setup-1.0.8.exe) (권장)
+- **Windows 포터블 버전** — [Routed-Monitoring-1.0.8.exe](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8.exe) (설치 필요 없음)
+- **Linux x64** — [Routed-Monitoring-1.0.8.AppImage](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8.AppImage)
 
 </details>
 
@@ -182,24 +194,27 @@ https://github.com/junhoyeo/tokscale
 
 <!-- app-update-notes:ja:start -->
 ### 追加
-- **ツールごとの状態詳細：** 「設定 > ツール」で追跡中の各 AI ツールについて、「ソース」「収集」状態、最終出力、集計された「使用量」を展開して確認できます。データがない、または古い場合は、ツールを再スキャンしたり、ファイルマネージャでデータの場所を表示したりできます。（#328、#331）
+- **トークン スループット：** コンパクトな `Σ` タイトルマークまたはライブドットにカーソルを合わせると現在の値を確認でき、クリックすると出力 `tok/s` と合計 Token `tok/min` を切り替えられます。選択は記憶されます。 (#296)
 
 ### 改善
-- **Antigravity の使用量：** Antigravity のソースデータをリアルタイムで追跡できるようになり、IDE だけがインストールされている場合にも対応します。使用量は次の定期収集を待たず、アクティビティ後に更新されます。（#319）
-- **ツールリスト：** ドラッグによる並び替えを改善し、ツールの行自体をドラッグできるようになりました。「追跡」と「表示」コントロールの既存の操作も維持されます。（#327）
+- **Windows セッション詳細：** 実行中の WSL ホームに保存された Claude と Codex の会話を、セッションビューから開けるようになり、Electron のメインプロセスもブロックしません。 (#297)
+- **ホームの制限：** ホームの制限行がよりコンパクトになり、整列されます。
+- **AI ツール制限の詳細：** Codex のリセット回数と Claude の前払いクレジットに、記録が1件だけの場合も含めて正確な有効期限が表示されます。
 
 ### 修正
-- **トレンド（DAY）：** DAY プレビューが使用量ゼロの日を含む直近7つのローカルカレンダー日を保持し、今日のリアルタイム合計を最後に記録された日ではなく今日の日付に表示します。（#335）
-- **Grok Build の使用量：** 使用量データを含む Grok セッションファイルが 0 と表示されたりトークン内訳が欠落したりする問題を修正し、入力、出力、キャッシュヒット、推論トークンを正しく収集できるようになりました。（#333）
+- **ウィンドウ状態：** 最大化したウィンドウは再起動後も最大化された状態に戻り、通常のウィンドウサイズも保持されます。トレイポップオーバーと折りたたんだフローティングバブルが通常のウィンドウサイズを上書きしなくなりました。 (#300)
+- **手動更新：** 更新をクリックすると、Cursor と Antigravity の使用量が最新データに更新され、最大5分前の値が表示されなくなります。 (#290)
+- **MiMo と Kimi の制限：** 使用量が上限を超えた場合、残りの割合がほぼ **99%** ではなく **0%** と正しく表示されます。 (#294)
+- **Windows Codex の確認：** `taskkill.exe` を解決できない場合でもアプリがクラッシュしなくなりました。 (#291)
 <!-- app-update-notes:ja:end -->
 
 ## ダウンロード
 
-- **macOS Apple Silicon** — [Token-Monitor-0.41.0-arm64.dmg](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0-arm64.dmg)
-- **macOS Intel** — [Token-Monitor-0.41.0-x64.dmg](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0-x64.dmg)
-- **Windows インストーラー** — [Token-Monitor-Setup-0.41.0.exe](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-Setup-0.41.0.exe)（推奨）
-- **Windows ポータブル版** — [Token-Monitor-0.41.0.exe](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0.exe)（インストール不要）
-- **Linux x64** — [Token-Monitor-0.41.0.AppImage](https://github.com/Javis603/token-monitor/releases/download/v0.41.0/Token-Monitor-0.41.0.AppImage)
+- **macOS Apple Silicon** — [Routed-Monitoring-1.0.8-arm64.dmg](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8-arm64.dmg)
+- **macOS Intel** — [Routed-Monitoring-1.0.8-x64.dmg](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8-x64.dmg)
+- **Windows インストーラー** — [Routed-Monitoring-Setup-1.0.8.exe](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-Setup-1.0.8.exe)（推奨）
+- **Windows ポータブル版** — [Routed-Monitoring-1.0.8.exe](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8.exe)（インストール不要）
+- **Linux x64** — [Routed-Monitoring-1.0.8.AppImage](https://github.com/celestialgeeks/router-x-token-monitor/releases/download/v1.0.8/Routed-Monitoring-1.0.8.AppImage)
 
 </details>
 

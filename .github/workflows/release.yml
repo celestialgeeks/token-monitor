@@ -3,7 +3,6 @@ name: Release
 on:
   push:
     tags: ['v*']
-  workflow_dispatch:
 
 jobs:
   build:
@@ -15,7 +14,7 @@ jobs:
             target: mac
             arch: arm64
             dist_script: dist:mac
-            artifact_name: personal-monitor-mac-arm64
+            artifact_name: routed-monitoring-mac-arm64
             artifact_path: |
               dist/*.dmg
               dist/*.zip
@@ -25,7 +24,7 @@ jobs:
             target: mac
             arch: x64
             dist_script: dist:mac:x64
-            artifact_name: personal-monitor-mac-x64
+            artifact_name: routed-monitoring-mac-x64
             artifact_path: |
               dist/*.dmg
               dist/*.zip
@@ -34,7 +33,7 @@ jobs:
           - os: windows-latest
             target: win
             dist_script: dist:win
-            artifact_name: personal-monitor-win
+            artifact_name: routed-monitoring-win
             artifact_path: |
               dist/*.exe
               dist/latest.yml
@@ -42,7 +41,7 @@ jobs:
           - os: ubuntu-latest
             target: linux
             dist_script: dist:linux
-            artifact_name: personal-monitor-linux
+            artifact_name: routed-monitoring-linux
             artifact_path: |
               dist/*.AppImage
               dist/latest-linux.yml
@@ -141,7 +140,7 @@ jobs:
         with:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
           organization-id: 8bf2856b-5fb0-4c78-ba99-90931fcce837
-          project-slug: personal-monitor
+          project-slug: routed-monitoring
           signing-policy-slug: release-signing
           artifact-configuration-slug: application
           github-artifact-id: ${{ steps.upload-unsigned-win-app.outputs.artifact-id }}
@@ -208,7 +207,7 @@ jobs:
         with:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
           organization-id: 8bf2856b-5fb0-4c78-ba99-90931fcce837
-          project-slug: personal-monitor
+          project-slug: routed-monitoring
           signing-policy-slug: release-signing
           artifact-configuration-slug: initial
           github-artifact-id: ${{ steps.upload-unsigned-win.outputs.artifact-id }}
@@ -276,7 +275,7 @@ jobs:
           path: artifacts
           # The unsigned SignPath input also lives in this run. Download only the
           # final platform artifacts so an unsigned executable can never publish.
-          pattern: personal-monitor-*
+          pattern: routed-monitoring-*
       - name: Stage release artifacts and merge mac updater metadata
         shell: bash
         run: |
@@ -292,8 +291,8 @@ jobs:
           done < <(find artifacts -mindepth 2 -type f ! -name 'latest-mac.yml' -print0)
           node scripts/merge-mac-updater-metadata.js \
             release-artifacts/latest-mac.yml \
-            artifacts/personal-monitor-mac-arm64/latest-mac.yml \
-            artifacts/personal-monitor-mac-x64/latest-mac.yml
+            artifacts/routed-monitoring-mac-arm64/latest-mac.yml \
+            artifacts/routed-monitoring-mac-x64/latest-mac.yml
           node scripts/verify-updater-artifact-names.js release-artifacts
       - uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
         with:
