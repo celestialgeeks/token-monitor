@@ -1,6 +1,6 @@
 'use strict';
 
-const clientLabels = { claude: 'Claude Code', codex: 'Codex', hermes: 'Hermes Agent', gemini: 'Gemini', cursor: 'Cursor', opencode: 'OpenCode', openclaw: 'OpenClaw', antigravity: 'Antigravity', cline: 'Cline', kimi: 'Kimi', qwen: 'Qwen', grok: 'Grok Build', copilot: 'GitHub Copilot', pi: 'Pi', zed: 'Zed', kilocode: 'Kilo Code', commandcode: 'Command Code', micode: 'MiMo Code', zcode: 'ZCode', kiro: 'Kiro', codebuddy: 'CodeBuddy', workbuddy: 'WorkBuddy', proma: 'Proma', qodercn: 'Qoder CN', reasonix: 'Reasonix', dsh: 'DeepSeek Harness', cherrystudio: 'Cherry Studio', lmstudio: 'LM Studio' };
+const clientLabels = { claude: 'Claude Code', codex: 'Codex', hermes: 'Hermes Agent', gemini: 'Gemini', cursor: 'Cursor', opencode: 'OpenCode', openclaw: 'OpenClaw', antigravity: 'Antigravity', cline: 'Cline', kimi: 'Kimi', qwen: 'Qwen', grok: 'Grok Build', copilot: 'GitHub Copilot', pi: 'Pi', zed: 'Zed', kilocode: 'Kilo Code', commandcode: 'Command Code', micode: 'MiMo Code', zcode: 'ZCode', kiro: 'Kiro', codebuddy: 'CodeBuddy', workbuddy: 'WorkBuddy', proma: 'Proma', qodercn: 'Qoder CN', reasonix: 'Reasonix', dsh: 'DeepSeek Harness', cherrystudio: 'Cherry Studio', lmstudio: 'LM Studio', omniroute: 'OmniRoute' };
 const reasonixSessionGuard = window.TokenMonitorReasonixSessionGuard;
 const { clientColors, fallbackModelColors, modelVendorFor, modelColor } = window.TokenMonitorUsageCharts;
 const motionPreferenceApi = window.TokenMonitorMotionPreference;
@@ -14960,7 +14960,7 @@ function renderOpenCodeProfiles() {
 
     // The auto-detected key counts as an account: it is what the limits card is
     // reading, so leaving it out of the total reports "not set up" next to live
-    // quota. It has no toggle or delete because Token Monitor does not own that
+    // quota. It has no toggle or delete because Routed Monitoring does not own that
     // credential — OpenCode does — but naming it does belong here: a name is
     // what lets it join an account, and typing an existing account's name is
     // how a user says the two are the same OpenCode account.

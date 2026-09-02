@@ -537,9 +537,9 @@ function HeroDashboard() {
   }, [hoveredHeat ? hoveredHeat.index : -1, liveTick]);
 
   return (
-    <div className="hero-dashboard" ref={dashboardRef} aria-label="Interactive Token Monitor Home dashboard">
+    <div className="hero-dashboard" ref={dashboardRef} aria-label="Interactive Routed Monitoring Home dashboard">
       <header className="hero-dashboard-titlebar">
-        <div className="hero-dashboard-mark" aria-label="Token Monitor">
+        <div className="hero-dashboard-mark" aria-label="Routed Monitoring">
           <span aria-hidden="true">Σ</span>
           <i aria-hidden="true"></i>
         </div>

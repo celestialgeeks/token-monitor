@@ -43,6 +43,7 @@ const { claudeSessionRoots } = require('./claudePaths');
 const { findSessionFiles, codexSessionFile } = require('./sessionFiles');
 const opencodeSession = require('./opencodeSession');
 const { buildPromaHistoryGraph, buildPromaPeriods, collectPromaRows } = require('./promaUsage');
+const { buildOmniRoutePeriods, buildOmniRouteHistoryGraph } = require('./omniRouteUsage');
 const {
   buildQoderCnHistoryGraph,
   buildQoderCnPeriods,
@@ -1632,6 +1633,7 @@ async function collectUsageOnce(options) {
     && canTargetTodayPartitions(anchor, targetClients)
   );
   let promaPeriods = null;
+  let omniRoutePeriods = null;
   let promaRows = null;
   let promaPricing = null;
   let qoderCnPeriods = null;
@@ -1683,6 +1685,11 @@ async function collectUsageOnce(options) {
       } catch (err) {
         if (typeof options.logger === 'function') options.logger(`proma parse failed: ${err.message}`);
       }
+    }
+    try {
+      omniRoutePeriods = buildOmniRoutePeriods({ now: collectedAt, allTimeSince });
+    } catch (err) {
+      if (typeof options.logger === 'function') options.logger(`omniroute parse failed: ${err.message}`);
     }
     if (includesQoderCn && (!targetRequested || targetClients.includes('qodercn'))) {
       try {
@@ -1754,6 +1761,7 @@ async function collectUsageOnce(options) {
         }
       }
       if (promaPeriods) freshPartitions.proma = promaPeriods.today;
+      if (omniRoutePeriods) freshPartitions.omniroute = omniRoutePeriods.today;
       if (qoderCnPeriods) freshPartitions.qodercn = qoderCnPeriods.today;
       if (qoderCnPeriodReadFailed && anchor.todayPartitions?.qodercn) {
         // A transient local.db read failure must not turn the existing Qoder CN
@@ -1820,6 +1828,12 @@ async function collectUsageOnce(options) {
       month = mergePeriods(month, promaPeriods.month);
       allTime = mergePeriods(allTime, promaPeriods.allTime);
       todayPartitions = { ...(todayPartitions || {}), proma: promaPeriods.today };
+    }
+    if (omniRoutePeriods && !anchorUsed) {
+      today = mergePeriods(today, omniRoutePeriods.today);
+      month = mergePeriods(month, omniRoutePeriods.month);
+      allTime = mergePeriods(allTime, omniRoutePeriods.allTime);
+      todayPartitions = { ...(todayPartitions || {}), omniroute: omniRoutePeriods.today };
     }
     if (qoderCnPeriods && !anchorUsed) {
       today = mergePeriods(today, qoderCnPeriods.today);
@@ -2037,6 +2051,7 @@ async function collectUsageOnce(options) {
     const history = await collectHistoryOnce({
       clients: tokscaleClients,
       promaGraph: includesProma ? buildPromaHistoryGraph({ rows: promaRows || collectPromaRows(), pricingByModel: promaPricing || {} }) : null,
+      omniRouteGraph: buildOmniRouteHistoryGraph(),
       qoderCnGraph: historyQoderCnGraph || null,
       historyEnabled: options.historyEnabled,
       commandTimeoutMs: options.historyTimeoutMs,

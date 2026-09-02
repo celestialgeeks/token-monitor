@@ -1,7 +1,7 @@
 {
-  "name": "token-monitor",
-  "productName": "Token Monitor",
-  "version": "0.52.0",
+  "name": "routed-monitoring",
+  "productName": "Routed Monitoring",
+  "version": "1.0.10",
   "description": "Live token & cost widget for Claude Code, Codex & Hermes — local-first, optional multi-device sync.",
   "main": "src/electron/main.js",
   "scripts": {
@@ -33,8 +33,8 @@
     "verify": "npm run lint && npm test"
   },
   "build": {
-    "appId": "com.javis.tokenmonitor",
-    "productName": "Token Monitor",
+    "appId": "com.celestialgeeks.routedmonitoring",
+    "productName": "Routed Monitoring",
     "directories": {
       "output": "dist"
     },
@@ -52,7 +52,7 @@
       "node_modules/koffi/**/*"
     ],
     "mac": {
-      "artifactName": "Token-Monitor-${version}-${arch}.${ext}",
+      "artifactName": "Routed-Monitoring-${version}-${arch}.${ext}",
       "target": [
         "dmg",
         "zip"
@@ -90,7 +90,7 @@
       }
     },
     "linux": {
-      "artifactName": "Token-Monitor-${version}.${ext}",
+      "artifactName": "Routed-Monitoring-${version}.${ext}",
       "target": [
         {
           "target": "AppImage",
@@ -105,14 +105,14 @@
       "description": "Real-time token, cost, and AI limits widget with multi-device sync for Claude Code, Codex, OpenCode and more."
     },
     "nsis": {
-      "artifactName": "Token-Monitor-Setup-${version}.${ext}",
+      "artifactName": "Routed-Monitoring-Setup-${version}.${ext}",
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
       "include": "scripts/nsis-installer.nsh"
     },
     "portable": {
-      "artifactName": "Token-Monitor-${version}.${ext}"
+      "artifactName": "Routed-Monitoring-${version}.${ext}"
     },
     "releaseInfo": {
       "releaseNotesFile": ".github/RELEASE_TEMPLATE.md"
@@ -120,8 +120,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "Javis603",
-        "repo": "token-monitor"
+        "owner": "celestialgeeks",
+        "repo": "Routed-Monitoring"
       }
     ]
   },
@@ -130,7 +130,7 @@
     "claude-code",
     "codex",
     "hermes",
-    "token-monitor",
+    "routed-monitoring",
     "token-usage",
     "cost-tracking",
     "llm",
@@ -144,11 +144,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Javis603/token-monitor.git"
+    "url": "git+https://github.com/celestialgeeks/Routed-Monitoring.git"
   },
-  "homepage": "https://github.com/Javis603/token-monitor#readme",
+  "homepage": "https://github.com/celestialgeeks/Routed-Monitoring#readme",
   "bugs": {
-    "url": "https://github.com/Javis603/token-monitor/issues"
+    "url": "https://github.com/celestialgeeks/Routed-Monitoring/issues"
   },
   "dependencies": {
     "@xhayper/discord-rpc": "^1.3.4",

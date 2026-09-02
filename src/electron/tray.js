@@ -385,7 +385,7 @@ function createTray({
 }) {
   const { Tray, Menu, nativeImage } = electron;
   const tray = new Tray(buildTrayIcon({ platform, nativeImage }));
-  tray.setToolTip('Token Monitor');
+  tray.setToolTip('Routed Monitoring');
 
   const menuState = () => (typeof getMenuState === 'function' ? getMenuState() : {});
   const buildMenu = (state = menuState()) => Menu.buildFromTemplate(buildTrayMenuTemplate({

@@ -346,7 +346,7 @@ const {
 
 if (!app.isPackaged) loadDotEnv();
 
-const APP_NAME = 'Token Monitor';
+const APP_NAME = 'Routed Monitoring';
 const APP_ICON_PATH = path.join(__dirname, '..', '..', 'assets', 'icon.png');
 const WINDOWS_APP_ICON_PATH = path.join(__dirname, '..', '..', 'assets', 'icon-win.png');
 
@@ -2285,7 +2285,7 @@ function reportCredentialStorageError(context, error) {
   try {
     dialog.showErrorBox(
       'Credential storage error',
-      `Token Monitor could not safely access credentials.json (${context}). The save was stopped and previous data was restored where possible. Check the file's JSON and permissions, then restart the app.\n\n${detail}`
+      `Routed Monitoring could not safely access credentials.json (${context}). The save was stopped and previous data was restored where possible. Check the file's JSON and permissions, then restart the app.\n\n${detail}`
     );
   } catch (_) {}
 }
@@ -4216,7 +4216,7 @@ function updateTrayDisplay() {
   if (trayShowsTitle(process.platform)) tray.setTitle(text);
   // Tooltip always shows a useful summary, even in icon-only mode where setTitle is blank.
   const tip = formatTrayText(visibleStats, 'both', currency, compactOptions);
-  tray.setToolTip(`Token Monitor - ${tip}`);
+  tray.setToolTip(`Routed Monitoring - ${tip}`);
   // Icon: rendered bars image in bar modes, otherwise the app icon.
   let icon = null;
   if (barsImageMode || trayImageMode || customImageMode) {
